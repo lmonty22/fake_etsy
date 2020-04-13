@@ -1,0 +1,17 @@
+<h1>Shop Details</h1>
+
+<p><%= @shop.user.first_name%> <%= @shop.user.last_name %></p>
+
+<p><%= @shop.name %></p>
+<p><%= @shop.description %></p>
+
+
+<h3>For sale:</h3>
+<% @shop.items.each do |item| %>
+<ul>
+    <li><%= item.name %></li>
+</ul>
+<% end %>
+
+
+<%= link_to "View all shops", shops_path %>

@@ -1,0 +1,32 @@
+<h1>User Details</h1>
+
+<%= link_to "Logout", logout_path %>
+
+<p><%= @user.first_name %> <%= @user.last_name %></p>
+<p><%= @user.username %></p>
+
+<% if @user.shop %>
+    <%= link_to "View My Shop", shop_path(@user.shop) %>
+<% else %>
+    <%= link_to "Create a Shop", new_shop_path %>
+<% end %>
+
+<h2>User Orders</h2>
+
+<% @user.orders.each do |order| %>
+<ul>
+<li>Date Ordered: <%= order.created_at %></li>
+<li>Order Number: <%= order.id %></li>
+<li>Items in Order: <% order.items.each do |item| %>
+    <ul>
+        <li>Item Name: <%= item.name %></li>
+        <li>From Shop: <%= item.shop.name %></li><br>
+    </ul>
+</li>
+<% end %>
+</ul>
+<hr>
+<% end %>
+
+<%= link_to "Edit Profile", edit_user_path(@user) %>
+<%= link_to "Delete Account", user_path(@user), :method => :delete%>
