@@ -1,5 +1,7 @@
 class OrderItemsController < ApplicationController
 
+    before_action :authorized
+
     def checkout
         order = Order.create(user: current_user)
         current_cart.each do |i| 

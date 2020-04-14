@@ -16,9 +16,27 @@
 <% end %>
 <br>
 <br>
-<% if @item.quantity && @item.quantity> 0 %>
-<%= link_to "Add to Cart!", add_to_cart_path(@item), :method => :post%>
+
+<% if logged_in? %>
+    <% if @item.quantity && @item.quantity> 0 %>
+    <%= link_to "Add to Cart!", add_to_cart_path(@item), :method => :post%>
+    <% end %>
+<% else %>
+    <% if @item.quantity && @item.quantity> 0 %>
+    <%= link_to "Please log in to add this item to your cart!", login_path %>
 <%end %>
+<% end %>
 <br>
 
 <%= link_to "Back to Shop", shop_path(@item.shop) %>
+
+<% if @item.reviews.length > 0 %>
+ <h2>Reviews</h2>
+    <% @item.reviews.each do |review| %>
+    <div><%= review.title %></div>
+    <div><%= review.rating %></div>
+    <div><%= review.content %></div><hr>
+    <% end %>
+<% else %>
+    <h3>This item has no reviews.</h3>
+<% end %>

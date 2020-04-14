@@ -11,7 +11,7 @@
     <%= link_to "Create a Shop", new_shop_path %>
 <% end %>
 
-<h2>User Orders</h2>
+<h2>Your Order History</h2>
 
 <% @user.orders.each do |order| %>
 <ul>
@@ -22,7 +22,8 @@
     <ul>
         <% total += item.price%>
         <li>Item Name: <%= item.name %></li>
-        <li>From Shop: <%= link_to item.shop.name, shop_path(item.shop) %></li><br>
+        <li>From Shop: <%= link_to item.shop.name, shop_path(item.shop) %></li>
+        <li><%= link_to "Write A Review For This Item", {controller: "reviews", action: "new", item: item.id} %></li><br>
     </ul>
 </li>
 <% end %>

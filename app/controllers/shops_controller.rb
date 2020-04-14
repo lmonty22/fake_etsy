@@ -1,6 +1,7 @@
 class ShopsController < ApplicationController
 
     before_action :set_shop, only: [:show, :edit, :update, :destroy, :shop_owner_show]
+    before_action :authorized, except: [:show, :index]
 
     def index
         @shops = Shop.all

@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
 
 
     before_action :set_item, only: [:show, :edit, :update, :destroy, :add_to_cart]
+    before_action :authorized, except: [:show, :index]
 
     def index
         @items = Item.all
@@ -24,7 +25,8 @@ class ItemsController < ApplicationController
     end
 
     def show
-
+        cookies["last_item_visited"] = params[:id]
+ 
     end
 
     def edit
@@ -52,9 +54,14 @@ class ItemsController < ApplicationController
         # Get the item from the path
         @item = Item.find(params[:id])
         # Load the cart from the session, or create a new empty cart.
-        current_cart << @item.id
-        flash[:add_to_cart] = "#{@item.name} has been added to your cart."  
-        redirect_to shop_path(@item.shop)
+        if logged_in?
+            current_cart << @item.id
+            flash[:add_to_cart] = "#{@item.name} has been added to your cart."  
+            redirect_to shop_path(@item.shop)
+        else
+            flash[:not_logged_in] = "Please log in to add this item to your cart."
+            redirect_to login_path
+        end
     end
 
     def remove_from_cart
