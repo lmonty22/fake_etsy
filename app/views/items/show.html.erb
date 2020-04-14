@@ -2,11 +2,23 @@
 
 <h2>Item Name: <%= @item.name %></h2>
 <h2>Description: <%= @item.description %></h2>
-<h2>Item Price: <%= @item.price %></h2>
-<h2>In Stock: <%= @item.quantity %></h2>
 
+<h2>Item Price: <%= number_to_currency(@item.price) %></h2>
+<% if @item.quantity && @item.quantity > 0 %>
+<h2>In Stock: <%= @item.quantity %></h2>
+<% else %>
+<h2> This Item is Sold Out! </h2>
+<%end%>
 
 <% if @item.shop.user == current_user %>
 <%= link_to "Edit this item", edit_item_path(@item) %>
 <%= link_to "Delete this item", item_path(@item), :method => :delete%>
 <% end %>
+<br>
+<br>
+<% if @item.quantity && @item.quantity> 0 %>
+<%= link_to "Add to Cart!", add_to_cart_path(@item), :method => :post%>
+<%end %>
+<br>
+
+<%= link_to "Back to Shop", shop_path(@item.shop) %>

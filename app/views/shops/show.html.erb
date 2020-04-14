@@ -1,10 +1,7 @@
-<h1>Shop Details</h1>
-
-<p><%= @shop.user.first_name%> <%= @shop.user.last_name %></p>
-
-<p><%= @shop.name %></p>
+<div class="add_to_cart"><%= flash[:add_to_cart]%> </div>
+<h1><%= @shop.name %></h1>
+<h4> By: <%= @shop.user.first_name%> <%= @shop.user.last_name %></h4>
 <p><%= @shop.description %></p>
-
 
 <h3>For sale:</h3>
 <% @shop.items.each do |item| %>

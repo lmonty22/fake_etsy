@@ -27,7 +27,7 @@ class ShopsController < ApplicationController
     end
 
     def shop_owner_show
-
+        #my_shop_shop_path(@shop)
     end
 
     def edit

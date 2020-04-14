@@ -1,6 +1,5 @@
 <h1>Shops Index</h1>
 
-
 <% @shops.each do |shop| %>
     <ul>
         <li><%= link_to shop.name, shop_path(shop) %></li>  

@@ -28,7 +28,7 @@ Review.destroy_all
 
 user1 = User.create(username: "lmonty22", first_name: "Lindsay", last_name: "Montgomery", password: "password")
 user2 = User.create(username: "bret-gib", first_name: "Bret", last_name: "Gibson", password: "password")
-shop1 = Shop.create(user_id: user1.id, name: "Things I could never make")
+shop1 = Shop.create(user_id: user1.id, name: "Lindsay's shop ", description: "Things I could never make. ")
 item1 = Item.create(name: "Face Mask", shop_id: shop1.id)
 item2 = Item.create(name: "Dog bandana", shop_id: shop1.id)
 order1 = Order.create(user_id: user2.id )

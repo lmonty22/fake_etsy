@@ -1,0 +1,23 @@
+<h1>My Cart</h1>
+<%= flash[:remove_from_cart]%>
+<% total = 0 %>
+<ul>
+<% if current_cart.length > 0 %>
+    <% current_cart.each do |i| %>
+    <% item = Item.find(i) %>
+    <li> <%= link_to item.name, item_path(item) %> </li>
+    <ul> 
+    <li> Price:<%= number_to_currency(item.price)%></li>
+    <li> Shop: <%= link_to item.shop.name, shop_path(item.shop) %> </li>
+    <% total += item.price%>
+    <li> <%= link_to "Remove from Cart", remove_from_cart_path(item), :method => :post %> </li>
+    </ul>
+    <%end %>
+
+    <% if current_cart.length > 0 %>
+    <div> Total: <%= number_to_currency(total) %> </div>
+    <div> <%= link_to "Check Out", checkout_path(current_user), :method => :post %>
+    <% end %>
+<%else %>
+<h4> Your cart is empty</h4>
+<%end%>

@@ -17,13 +17,16 @@
 <ul>
 <li>Date Ordered: <%= order.created_at %></li>
 <li>Order Number: <%= order.id %></li>
+<%total = 0 %>
 <li>Items in Order: <% order.items.each do |item| %>
     <ul>
+        <% total += item.price%>
         <li>Item Name: <%= item.name %></li>
-        <li>From Shop: <%= item.shop.name %></li><br>
+        <li>From Shop: <%= link_to item.shop.name, shop_path(item.shop) %></li><br>
     </ul>
 </li>
 <% end %>
+<div>Order Total: <%= number_to_currency(total) %>
 </ul>
 <hr>
 <% end %>

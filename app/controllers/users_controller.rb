@@ -39,6 +39,10 @@ class UsersController < ApplicationController
         redirect_to login_path
     end
 
+    def my_cart
+
+    end
+
     private
 
     def user_params

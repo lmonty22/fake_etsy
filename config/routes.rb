@@ -14,5 +14,10 @@ Rails.application.routes.draw do
   post '/login', to: "sessions#process_login"
 
   get '/logout', to: 'sessions#logout'
+  post '/items/:id/add_to_cart', to: 'items#add_to_cart', as: "add_to_cart"
+  post '/items/:id/remove_from_cart', to: 'items#remove_from_cart', as: "remove_from_cart"
+  get 'users/:id/my_cart', to: "users#my_cart", as: "my_cart"
+  post '/users/:id/my_cart', to: "order_items#checkout", as: "checkout"
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
