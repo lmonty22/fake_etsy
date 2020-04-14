@@ -15,7 +15,7 @@
       <div><%= link_to "Logout", logout_path %></div>
       <div><%= link_to "My Profile", user_path(current_user) %></div>
       <div><%= link_to "View Shops", shops_path %></div>
-      <div><%= link_to "My Cart", my_cart_path(current_user) %> </div>
+      <div><%= link_to "My Cart (#{current_cart.length})", my_cart_path(current_user) %> </div>
     <% else %>
       <div><%= link_to "Login", login_path %></div>
     <% end %>
