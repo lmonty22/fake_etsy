@@ -13,11 +13,9 @@
 </ul>
 <% end %>
 
-
-<%= link_to "View all shops", shops_path %>
+<%= link_to "Add item(s) to this shop", new_item_path %>
 <%= link_to "Edit this shop",  edit_shop_path(@shop)%>
-<%= link_to "Delete this shop", shops_path, :method => :delete%>
+<%= link_to "Delete this shop", shop_path(@shop), :method => :delete%>
  
 
 <!-- ADD LINKS FOR ADDING ITEMS TO SHOP, ETC. -->
-

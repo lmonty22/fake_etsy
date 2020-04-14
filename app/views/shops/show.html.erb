@@ -9,7 +9,7 @@
 <h3>For sale:</h3>
 <% @shop.items.each do |item| %>
 <ul>
-    <li><%= item.name %></li>
+    <li><%=link_to item.name, item_path(item) %></li>
 </ul>
 <% end %>
 

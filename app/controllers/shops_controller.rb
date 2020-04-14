@@ -12,9 +12,14 @@ class ShopsController < ApplicationController
     end
 
     def create
-        @shop = Shop.create(shop_params)
+        @shop = Shop.new(shop_params)
         @shop.user = current_user
-        redirect_to  my_shop_shop_path(@shop)
+        if @shop.valid?
+            @shop.save
+            redirect_to  my_shop_shop_path(@shop)
+        else
+            render :new
+        end
     end
 
     def show
@@ -35,7 +40,8 @@ class ShopsController < ApplicationController
     end
 
     def destroy
-
+        @shop.destroy
+        redirect_to user_path(current_user)
     end
 
     private
