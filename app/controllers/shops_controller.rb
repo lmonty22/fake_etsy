@@ -14,7 +14,7 @@ class ShopsController < ApplicationController
     def create
         @shop = Shop.create(shop_params)
         @shop.user = current_user
-        redirect_to  shop_path(shop)
+        redirect_to  my_shop_shop_path(@shop)
     end
 
     def show
@@ -22,8 +22,6 @@ class ShopsController < ApplicationController
     end
 
     def shop_owner_show
-        # NEED TO FIGURE OUT HOW TO FIND THE SHOP THAT BELONGS TO THE CURRENT USER
-        # For now, we just have it so that you can go to any ID and add /my_shop to get to the shop admin functions
 
     end
 

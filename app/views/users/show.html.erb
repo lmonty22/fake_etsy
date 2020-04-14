@@ -6,7 +6,7 @@
 <p><%= @user.username %></p>
 
 <% if @user.shop %>
-    <%= link_to "View My Shop", shop_path(@user.shop) %>
+    <%= link_to "View My Shop", my_shop_shop_path(@user.shop) %>
 <% else %>
     <%= link_to "Create a Shop", new_shop_path %>
 <% end %>

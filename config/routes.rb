@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   end
   resources :users
 
+  # get "/:id/my_shop", to: "shops#shop_owner_show"
+
   get '/login', to: "sessions#login"
   post '/login', to: "sessions#process_login"
 

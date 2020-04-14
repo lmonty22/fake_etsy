@@ -7,9 +7,14 @@ class UsersController < ApplicationController
     end
 
     def create
-        @user = User.create(user_params)
-        session[:user_id] = @user.id
-        redirect_to user_path(@user)
+        @user = User.new(user_params)
+        if @user.valid?
+            @user.save
+            session[:user_id] = @user.id
+            redirect_to user_path(@user)
+        else
+            render :new
+        end
     end
 
     def show
@@ -20,8 +25,13 @@ class UsersController < ApplicationController
     end
 
     def update
-        @user.update(user_params)
-        redirect_to user_path(@user)
+        @user.assign_attributes(user_params)
+        if @user.valid?
+            @user.update(user_params)
+            redirect_to user_path(@user)
+        else
+            render :edit
+        end
     end
 
     def destroy
@@ -32,7 +42,7 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:username, :first_name, :last_name)
+        params.require(:user).permit(:username, :first_name, :last_name, :password)
     end
 
     def set_user
