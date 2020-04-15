@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
     def create
         @item = Item.new(item_params)
         @item.shop = current_user.shop
-        @item.image.attach(params[:image])
+        @item.image.attach(params[:item][:image])
         if @item.valid?
             @item.save
             redirect_to  item_path(@item)
@@ -38,7 +38,7 @@ class ItemsController < ApplicationController
     def update
         @item.assign_attributes(item_params)
         if @item.valid?
-            @item.image.attach(params[:image])
+            @item.image.attach(params[:item][:image])
             @item.save
             redirect_to item_path(@item)
         else 

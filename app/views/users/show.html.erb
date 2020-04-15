@@ -28,6 +28,7 @@
 <li>Items in Order: <% order.items.each do |item| %>
     <ul>
         <% total += item.price%>
+        <li><%= avatar(item.id, Item) %></li>
         <li>Item Name: <%= item.name %></li>
         <li>From Shop: <%= link_to item.shop.name, shop_path(item.shop) %></li>
         <li><%= link_to "Write A Review For This Item", {controller: "reviews", action: "new", item: item.id} %></li><br>

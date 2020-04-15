@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
     before_action :set_user, only: [:edit, :show, :update, :destroy]
-    before_action :authorized
+    before_action :authorized, except: [:new, :create]
 
 
     def new
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
     def create
         @user = User.new(user_params)
-        @user.avatar.attach(params[:image])
+        @user.image.attach(params[:user][:image])
         if @user.valid?
             @user.save
             session[:user_id] = @user.id
@@ -30,8 +30,8 @@ class UsersController < ApplicationController
     def update
         @user.assign_attributes(user_params)
         if @user.valid?
-            @user.image.attach(params[:image])
-            @user.update(user_params)
+            @user.image.attach(params[:user][:image])
+            @user.save
             redirect_to user_path(@user)
         else
             render :edit

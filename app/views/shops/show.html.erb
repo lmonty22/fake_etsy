@@ -17,6 +17,8 @@
     <li><%=link_to item.name, item_path(item) %></li>
 </ul>
 <% end %>
-
+<% if @shop.user == current_user %>
+<%= link_to "Manage My Shop", my_shop_shop_path(@shop)%>
+<% end %>
 
 <%= link_to "View all shops", shops_path %>
