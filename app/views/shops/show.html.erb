@@ -12,7 +12,7 @@
 <p><%= @shop.description %></p>
 
 <h3>For sale:</h3>
-<% @shop.items.each do |item| %>
+<% @shop.listed_items.each do |item| %>
 <ul>
     <li><%=link_to item.name, item_path(item) %></li>
 </ul>

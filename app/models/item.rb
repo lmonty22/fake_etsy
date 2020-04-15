@@ -6,5 +6,11 @@ class Item < ApplicationRecord
     has_many :order_items
     has_many :orders, through: :order_items
     validates :name, :price, :quantity, :description, presence: true
+
+
+    def change_listing_status
+        self.listed = !self.listed
+        self.save
+    end
     
 end

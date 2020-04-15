@@ -10,7 +10,11 @@ class Shop < ApplicationRecord
     validates_uniqueness_of :user, message: "cannot have more than one shop."
 
 
-
+    def listed_items
+        self.items.select do |item|
+            item.listed == true
+        end 
+    end
 
 
 

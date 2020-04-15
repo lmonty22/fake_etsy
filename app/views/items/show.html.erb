@@ -19,13 +19,17 @@
 
 <% if @item.shop.user == current_user %>
 <%= link_to "Edit this item", edit_item_path(@item) %>
-<%= link_to "Delete this item", item_path(@item), :method => :delete%>
+    <% if @item.listed%>
+    <%= link_to "Unlist this item", status_path(@item), :method => :post%>
+    <%else %>
+    <%= link_to "Re-list this item", status_path(@item), :method => :post%>
 <% end %>
+<% end%>
 <br>
 <br>
 
 <% if logged_in? %>
-    <% if @item.quantity && @item.quantity> 0 %>
+    <% if @item.listed && @item.quantity && @item.quantity> 0 %>
     <%= link_to "Add to Cart!", add_to_cart_path(@item), :method => :post%>
     <% end %>
 <% else %>

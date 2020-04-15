@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-    before_action :set_item, only: [:show, :edit, :update, :destroy, :add_to_cart]
+    before_action :set_item, only: [:show, :edit, :update, :add_to_cart, :change_item_listing]
     before_action :authorized, except: [:show, :index]
 
     def index
@@ -35,6 +35,7 @@ class ItemsController < ApplicationController
     def update
         @item.assign_attributes(item_params)
         @item.image.attach(params[:item][:image])
+        #add listed?
         if @item.valid?
             @item.save
             redirect_to item_path(@item)
@@ -43,8 +44,9 @@ class ItemsController < ApplicationController
         end
     end
 
-    def destroy
-        @item.destroy
+  
+    def change_item_listing
+        @item.change_listing_status
         redirect_to my_shop_shop_path(current_user.shop)
     end
 
