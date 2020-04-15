@@ -7,4 +7,11 @@ class Shop < ApplicationRecord
     has_many :orders, through: :order_items
     validates :name, presence: true
     validates :description, presence: true
+    validates_uniqueness_of :user, message: "cannot have more than one shop."
+
+
+
+
+
+
 end

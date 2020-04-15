@@ -1,5 +1,7 @@
 <h1>Create a Shop</h1>
 
+<%= render partial: "/shared/error_list", locals: {new_object: @shop} %>
+
 <%= form_for @shop do |f| %>
 <%= f.label :name %>
 <%= f.text_field :name %>

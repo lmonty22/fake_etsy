@@ -37,6 +37,20 @@
 
 <%= link_to "Back to Shop", shop_path(@item.shop) %>
 
+<!-- block for current user's review -->
+<% review = Review.find_by(user: current_user, item: @item) %>
+<% if review %>
+<h4> Your Review for this item </h4>
+    <div><%= review.title %></div>
+    <div><%= review.rating %></div>
+    <div><%= review.content %></div>
+        <%= link_to 'Edit your review', edit_review_path(review) %>
+         <%= link_to 'Delete your review', review_path(review), :method => :delete %>
+      <hr>
+<%end %>
+
+<!-- All the reviews -->
+
 <% if @item.reviews.length > 0 %>
  <h2>Reviews</h2>
     <% @item.reviews.each do |review| %>

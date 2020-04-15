@@ -28,9 +28,14 @@
 <li>Items in Order: <% order.items.each do |item| %>
     <ul>
         <% total += item.price%>
-        <li>Item Name: <%= item.name %></li>
+        <li>Item Name: <%= link_to item.name, item_path(item) %></li>
         <li>From Shop: <%= link_to item.shop.name, shop_path(item.shop) %></li>
+        <%if @user.reviewed_item_ids.include?(item.id)%>
+                <% review = Review.find_by(user: @user, item: item) %>
+        <li><%= link_to "Edit your review for this item", edit_review_path(review) %>
+        <%else %>
         <li><%= link_to "Write A Review For This Item", {controller: "reviews", action: "new", item: item.id} %></li><br>
+        <%end%>
     </ul>
 </li>
 <% end %>
