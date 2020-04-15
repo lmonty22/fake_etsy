@@ -2,14 +2,9 @@
 
 <h2>Item Name: <%= @item.name %></h2>
 <h2>Description: <%= @item.description %></h2>
-<!--<% if @item.image.attached? %>
-    <div><%%= image_tag(@item.image, style: "width:100px") %></div>
-<% else %>
-    <div><%= image_tag("/public/no_image_placeholder_1.jpg", style: "width:100px") %></div>
-<% end %>-->
 
 <div><%= avatar(@item.id, Item) %></div>
-
+<h2>Average Rating: <%= @item.average_rating %></h2>
 <h2>Item Price: <%= number_to_currency(@item.price) %></h2>
 <% if @item.quantity && @item.quantity > 0 %>
 <h2>In Stock: <%= @item.quantity %></h2>
@@ -20,9 +15,9 @@
 <% if @item.shop.user == current_user %>
 <%= link_to "Edit this item", edit_item_path(@item) %>
     <% if @item.listed%>
-    <%= link_to "Unlist this item", status_path(@item), :method => :post%>
+    <%= link_to "Unlist this item", status_path(@item), :method => :patch%>
     <%else %>
-    <%= link_to "Re-list this item", status_path(@item), :method => :post%>
+    <%= link_to "Re-list this item", status_path(@item), :method => :patch%>
 <% end %>
 <% end%>
 <br>
@@ -44,23 +39,26 @@
 <!-- block for current user's review -->
 <% review = Review.find_by(user: current_user, item: @item) %>
 <% if review %>
-<h4> Your Review for this item </h4>
-    <div><%= review.title %></div>
-    <div><%= review.rating %></div>
-    <div><%= review.content %></div>
-        <%= link_to 'Edit your review', edit_review_path(review) %>
-         <%= link_to 'Delete your review', review_path(review), :method => :delete %>
+    <h4> Your Review for this item </h4>
+    <div>Title: <%= review.title %></div>
+    <div>Rating: <%= review.rating %></div>
+    <div>Review: <%= review.content %></div>
+    <%= link_to 'Edit your review', edit_review_path(review) %>
+    <%= link_to 'Delete your review', review_path(review), :method => :delete %>
       <hr>
 <%end %>
 
 <!-- All the reviews -->
 
 <% if @item.reviews.length > 0 %>
- <h2>Reviews</h2>
-    <% @item.reviews.each do |review| %>
-    <div><%= review.title %></div>
-    <div><%= review.rating %></div>
-    <div><%= review.content %></div><hr>
+ <h2>All Other Reviews</h2>
+    <% @item.reviews.each do |r| %>
+        <% if r != review %>
+            <div>From User: <%= r.user.username %></div>
+            <div>Title: <%= r.title %></div>
+            <div>Rating: <%= r.rating %></div>
+            <div>Review: <%= r.content %></div><hr>
+        <% end %>
     <% end %>
 <% else %>
     <h3>This item has no reviews.</h3>

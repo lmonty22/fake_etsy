@@ -16,6 +16,16 @@ class Shop < ApplicationRecord
         end 
     end
 
+    def unlisted_items
+        self.items.select do |item|
+            item.listed == false
+        end 
+    end
 
+
+    def change_status
+        self.status = !self.status
+        self.save
+    end
 
 end

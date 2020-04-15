@@ -25,7 +25,6 @@ class ItemsController < ApplicationController
 
     def show
         cookies["last_item_visited"] = params[:id]
- 
     end
 
     def edit
@@ -44,13 +43,16 @@ class ItemsController < ApplicationController
         end
     end
 
-  
     def change_item_listing
         @item.change_listing_status
-        redirect_to my_shop_shop_path(current_user.shop)
+        if @item.valid?
+            redirect_to my_shop_shop_path(current_user.shop)
+        else
+            flash["relist_error"] = "You cannot re-list an item for a deactivated shop"
+            redirect_to my_shop_shop_path(current_user.shop)
+        end
     end
 
-    
     def add_to_cart
         # Get the item from the path
         @item = Item.find(params[:id])
@@ -77,6 +79,9 @@ class ItemsController < ApplicationController
         flash[:remove_from_cart] ="Item removed from cart."
         redirect_to my_cart_path(current_user)
     end
+
+
+
 
     private
 

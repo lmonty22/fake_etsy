@@ -1,6 +1,6 @@
 class ShopsController < ApplicationController
 
-    before_action :set_shop, only: [:show, :edit, :update, :destroy, :shop_owner_show]
+    before_action :set_shop, only: [:show, :edit, :update, :shop_owner_show, :change_shop_status]
     before_action :authorized, except: [:show, :index]
 
     def index
@@ -48,8 +48,18 @@ class ShopsController < ApplicationController
         # redirect....
     end
 
-    def destroy
-        @shop.destroy
+    # def destroy
+    #     @shop.destroy
+    #     redirect_to user_path(current_user)
+    # end
+
+    def change_shop_status
+        @shop.change_status
+        @shop.items.each do |item|
+            if item.listed == true
+                item.change_listing_status
+            end
+        end
         redirect_to user_path(current_user)
     end
 

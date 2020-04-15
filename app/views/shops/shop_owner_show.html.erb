@@ -2,28 +2,39 @@
 
 <p><%= @shop.user.first_name%> <%= @shop.user.last_name %></p>
 
-<!--<% if @shop.image.attached? %>
-    <div><%= image_tag(@shop.image, style: "width:100px") %></div>
-<% else %>
-    <div><%= image_tag("/public/no_image_placeholder_1.jpg", style: "width:100px") %></div>
-<% end %>-->
-
 <div><%= avatar(@shop.id, Shop) %></div>
+
+<% if @shop.status == false %>
+    <h1>This shop is no longer active!</h1>
+<% end %>
 
 <p><%= @shop.name %></p>
 <p><%= @shop.description %></p>
 
-
 <h3>For sale:</h3>
-<% @shop.items.each do |item| %>
+<% @shop.listed_items.each do |item| %>
 <ul>
-    <li><%= link_to item.name, item_path(item) %></li>
+    <li><%= link_to item.name, item_path(item) %> - <%= link_to "Unlist this item", status_path(item), :method => :patch%></li>
 </ul>
+<% end %>
+
+<%= flash["relist_error"] %>
+
+<% if !@shop.unlisted_items.empty? %>
+    <h3>Unlisted Items:</h3>
+    <% @shop.unlisted_items.each do |item| %>
+        <ul>
+            <li><%= link_to item.name, item_path(item) %> - <%= link_to "Re-list this item", status_path(item), :method => :patch%></li>
+        </ul>
+    <% end %>
 <% end %>
 
 <%= link_to "Add item(s) to this shop", new_item_path %>
 <%= link_to "Edit this shop",  edit_shop_path(@shop)%>
-<%= link_to "Delete this shop", shop_path(@shop), :method => :delete%>
- 
 
-<!-- ADD LINKS FOR ADDING ITEMS TO SHOP, ETC. -->
+
+<% if @shop.status%>
+<%= link_to "Deactivate this shop", shop_status_path(@shop), :method => :patch%>
+<%else %>
+    <%= link_to "Re-activate this shop", shop_status_path(@shop), :method => :patch%>
+<% end %>

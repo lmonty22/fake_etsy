@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   get 'users/:id/my_cart', to: "users#my_cart", as: "my_cart"
   post '/users/:id/my_cart', to: "order_items#checkout", as: "checkout"
   get '/', to: "shops#index"
-  post '/items/:id/status', to: "items#change_item_listing", as: "status"
+  patch '/items/:id/status', to: "items#change_item_listing", as: "status"
+  patch '/shops/:id/status', to: "shops#change_shop_status", as: "shop_status"
+
   #build a homepage someday
 
 

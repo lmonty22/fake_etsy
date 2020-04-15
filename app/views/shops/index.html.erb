@@ -2,6 +2,8 @@
 
 <% @shops.each do |shop| %>
     <ul>
+        <% if shop.status == true %>
         <li><%= link_to shop.name, shop_path(shop) %></li>  
+        <% end %>
     </ul>
 <% end %>
