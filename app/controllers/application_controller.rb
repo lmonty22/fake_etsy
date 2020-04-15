@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
     helper_method :authorized
     helper_method :current_cart
 
-
     def current_user
         User.find_by(id: session[:user_id])
     end
@@ -23,6 +22,5 @@ class ApplicationController < ActionController::Base
     def current_cart
         session[:cart] ||= []
     end
-
 
 end

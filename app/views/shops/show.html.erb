@@ -1,4 +1,12 @@
 <div class="add_to_cart"><%= flash[:add_to_cart]%> </div>
+<!--<% if @shop.image.attached? %>
+    <div><%= image_tag(@shop.image, style: "width:100px") %></div>
+<% else %>
+    <div><%= image_tag("/public/no_image_placeholder_1.jpg", style: "width:100px") %></div>
+<% end %>-->
+
+<div><%= avatar(@shop.id, Shop) %></div>
+
 <h1><%= @shop.name %></h1>
 <h4> By: <%= @shop.user.first_name%> <%= @shop.user.last_name %></h4>
 <p><%= @shop.description %></p>

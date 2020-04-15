@@ -15,6 +15,7 @@ class ShopsController < ApplicationController
     def create
         @shop = Shop.new(shop_params)
         @shop.user = current_user
+        @shop.image.attach(params[:image])
         if @shop.valid?
             @shop.save
             redirect_to  my_shop_shop_path(@shop)
@@ -36,7 +37,14 @@ class ShopsController < ApplicationController
     end
 
     def update
-        @shop.update(shop_params)
+        @shop.assign_attributes(shop_params)
+        if @shop.valid?
+            @shop.image.attach(params[:image])
+            @shop.update(shop_params)
+            redirect_to my_shop_shop_path(@shop)
+        else
+            render :edit
+        end
         # redirect....
     end
 
@@ -48,7 +56,7 @@ class ShopsController < ApplicationController
     private
 
     def shop_params
-        params.require(:shop).permit(:name, :description)
+        params.require(:shop).permit(:name, :description, :image)
     end
 
     def set_shop

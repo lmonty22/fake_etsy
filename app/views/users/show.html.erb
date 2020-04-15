@@ -1,6 +1,13 @@
 <h1>User Details</h1>
 
 <%= link_to "Logout", logout_path %>
+<!--<% if @user.image.attached? %>
+    <div><%= image_tag(@user.image, style: "width:100px") %></div>
+<% else %>
+    <div><%= image_tag("/public/no_image_placeholder_1.jpg", style: "width:100px") %></div>
+<% end %>-->
+
+<div><%= avatar(@user.id, User) %></div>
 
 <p><%= @user.first_name %> <%= @user.last_name %></p>
 <p><%= @user.username %></p>

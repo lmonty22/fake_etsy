@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
     def create
         @user = User.new(user_params)
+        @user.avatar.attach(params[:image])
         if @user.valid?
             @user.save
             session[:user_id] = @user.id
@@ -29,6 +30,7 @@ class UsersController < ApplicationController
     def update
         @user.assign_attributes(user_params)
         if @user.valid?
+            @user.image.attach(params[:image])
             @user.update(user_params)
             redirect_to user_path(@user)
         else
@@ -48,7 +50,7 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:username, :first_name, :last_name, :password)
+        params.require(:user).permit(:username, :first_name, :last_name, :password, :image)
     end
 
     def set_user
