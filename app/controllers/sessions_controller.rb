@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
 
     def logout
         session.clear
+        cookies.delete(:last_item_visited)
         redirect_to login_path
     end
 end

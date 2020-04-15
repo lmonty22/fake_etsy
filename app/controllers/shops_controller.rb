@@ -15,7 +15,7 @@ class ShopsController < ApplicationController
     def create
         @shop = Shop.new(shop_params)
         @shop.user = current_user
-        @shop.image.attach(params[:image])
+        @shop.image.attach(params[:shop][:image])
         if @shop.valid?
             @shop.save
             redirect_to  my_shop_shop_path(@shop)
@@ -39,7 +39,7 @@ class ShopsController < ApplicationController
     def update
         @shop.assign_attributes(shop_params)
         if @shop.valid?
-            @shop.image.attach(params[:image])
+            @shop.image.attach(params[:shop][:image])
             @shop.update(shop_params)
             redirect_to my_shop_shop_path(@shop)
         else

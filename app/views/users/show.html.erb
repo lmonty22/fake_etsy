@@ -28,7 +28,12 @@
 <li>Items in Order: <% order.items.each do |item| %>
     <ul>
         <% total += item.price%>
+<<<<<<< HEAD
         <li>Item Name: <%= link_to item.name, item_path(item) %></li>
+=======
+        <li><%= avatar(item.id, Item) %></li>
+        <li>Item Name: <%= item.name %></li>
+>>>>>>> da38af03f8faa068c58e0ae6ffe44b8e1c356f81
         <li>From Shop: <%= link_to item.shop.name, shop_path(item.shop) %></li>
         <%if @user.reviewed_item_ids.include?(item.id)%>
                 <% review = Review.find_by(user: @user, item: item) %>
