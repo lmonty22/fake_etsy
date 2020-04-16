@@ -1,66 +1,89 @@
-<h1>Item Details</h1>
 
-<h2>Item Name: <%= @item.name %></h2>
-<h2>Description: <%= @item.description %></h2>
 
-<div><%= avatar(@item.id, Item) %></div>
-<h2>Average Rating: <%= @item.average_rating %></h2>
-<h2>Item Price: <%= number_to_currency(@item.price) %></h2>
-<% if @item.quantity && @item.quantity > 0 %>
-<h2>In Stock: <%= @item.quantity %></h2>
-<% else %>
-<h2> This Item is Sold Out! </h2>
-<%end%>
+<div class="container">
+  <div class="notification">
+        <div class="columns">
+            <div class="column"><div style="display:flex; justify-content:center;"><%= avatar(@item.id, Item, "image is-sqaure") %> </div></div>
+              <div class="column is-three-fifths">
+                <h2><strong> <%= @item.name %></strong></h2>
+                <h4>Shop: <%= link_to @item.shop.name, shop_path(@item.shop) %>
+                <p>Description: <%= @item.description %></p>
+                <div>Item Price: <%= number_to_currency(@item.price) %></div>
+                    <% if @item.quantity && @item.quantity > 0 %>
+                        <div>In Stock: <%= @item.quantity %></div>
+                    <% else %>
+                        <div> This Item is Sold Out! </div>
+                    <%end%>
+                <% if @item.shop.user == current_user %>
+                    <%= link_to "Edit this item", edit_item_path(@item) %>
+                        <% if @item.listed%>
+                            <%= link_to "Unlist this item", status_path(@item), :method => :patch%>
+                        <%else %>
+                        <%= link_to "Re-list this item", status_path(@item), :method => :patch%>
+                        <% end %>
+                <% else %>
+                        <% if logged_in? %>
+                            <% if @item.listed && @item.quantity && @item.quantity> 0 %>
+                                 <%= link_to "Add to Cart!", add_to_cart_path(@item), :method => :post%>
+                            <% end %>
+                        <% else %>
+                            <% if @item.quantity && @item.quantity> 0 %>
+                                    <%= link_to "Please log in to add this item to your cart!", login_path %>
+                            <%end %>
+                        <% end %>
+                <%end%>
+                <%= link_to "Back to Shop", shop_path(@item.shop) %>
+             </div>
+        </div>
+    </div>
+</div>
 
-<% if @item.shop.user == current_user %>
-<%= link_to "Edit this item", edit_item_path(@item) %>
-    <% if @item.listed%>
-    <%= link_to "Unlist this item", status_path(@item), :method => :patch%>
-    <%else %>
-    <%= link_to "Re-list this item", status_path(@item), :method => :patch%>
-<% end %>
-<% end%>
 <br>
-<br>
 
-<% if logged_in? %>
-    <% if @item.listed && @item.quantity && @item.quantity> 0 %>
-    <%= link_to "Add to Cart!", add_to_cart_path(@item), :method => :post%>
-    <% end %>
-<% else %>
-    <% if @item.quantity && @item.quantity> 0 %>
-    <%= link_to "Please log in to add this item to your cart!", login_path %>
-<%end %>
-<% end %>
-<br>
-
-<%= link_to "Back to Shop", shop_path(@item.shop) %>
 
 <!-- block for current user's review -->
-<% review = Review.find_by(user: current_user, item: @item) %>
-<% if review %>
-    <h4> Your Review for this item </h4>
-    <div>From User: <%= avatar(review.user.id, User) %> <%= review.user.username %></div>
-    <div>Title: <%= review.title %></div>
-    <div>Rating: <%= review.rating %></div>
-    <div>Review: <%= review.content %></div>
-    <%= link_to 'Edit your review', edit_review_path(review) %>
-    <%= link_to 'Delete your review', review_path(review), :method => :delete %>
-      <hr>
-<%end %>
+<% if @user_review %>
+    <h3>Your Review for this item </h3>
+    <div class="container">
+            <div class="notification">
+                <div class="columns">
+                        <div class="column"><div style="display:flex; justify-content:center;"><%= avatar(current_user.id, User,"image is-64x64") %> </div> </div>
+                        <div class="column is-four-fifths">
+                            <div><strong> <%= @user_review.title %> (<%= @user_review.rating %> stars)</strong> by@<%= @user_review.user.username %> </div>
+                            <div><%= @user_review.content %></div>
+                            <%= link_to 'Edit your review', edit_review_path(@user_review) %>
+                            <%= link_to 'Delete your review', review_path(@user_review), :method => :delete %>
+                             <hr>
+                        </div>
+                </div>
+            </div>
+        </div>
+<% end %>
+
+
 
 <!-- All the reviews -->
 
+
 <% if @item.reviews.length > 0 %>
- <h2>All Reviews</h2>
-    <% @item.reviews.each do |r| %>
-        <% if r != review %>
-            <div>From User: <%= avatar(r.user.id, User) %> <%= r.user.username %></div>
-            <div>Title: <%= r.title %></div>
-            <div>Rating: <%= r.rating %></div>
-            <div>Review: <%= r.content %></div><hr>
-        <% end %>
-    <% end %>
-<% else %>
-    <h3>This item has no reviews.</h3>
+    <h3>All Reviews (Average Rating: <%= @item.average_rating %>)</h3>
+        <div class="container">
+            <div class="notification">
+                <div class="columns">
+                    <% @item.reviews.each do |r| %>
+                        <% if r != @user_review  %>
+                        <div class="column"><div style="display:flex; justify-content:center;"><%= avatar(r.user.id, User,"image is-64x64") %> </div> </div>
+                        <div class="column is-four-fifths">
+                            <div><strong> <%= r.title %> (<%= r.rating %> stars)</strong> by@<%= r.user.username %> </div>
+                            <div><%= r.content %></div>
+                             <hr>
+                        </div>
+                        <%end%>
+                    <%end%>
+
+                </div>
+            </div>
+        </div>
+<%else%>
+     <h3>This item has no reviews.</h3>
 <% end %>

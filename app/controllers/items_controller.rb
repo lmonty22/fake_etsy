@@ -25,6 +25,7 @@ class ItemsController < ApplicationController
 
     def show
         cookies["last_item_visited"] = params[:id]
+        @user_review = Review.find_by(user: current_user, item: @item)
     end
 
     def edit
