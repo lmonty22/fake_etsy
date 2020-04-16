@@ -29,7 +29,6 @@ class ShopsController < ApplicationController
     end
 
     def shop_owner_show
-        #my_shop_shop_path(@shop)
     end
 
     def edit
@@ -45,19 +44,14 @@ class ShopsController < ApplicationController
         else
             render :edit
         end
-        # redirect....
     end
-
-    # def destroy
-    #     @shop.destroy
-    #     redirect_to user_path(current_user)
-    # end
 
     def change_shop_status
         @shop.change_status
         @shop.items.each do |item|
             if item.listed == true
                 item.change_listing_status
+                item.save
             end
         end
         redirect_to user_path(current_user)

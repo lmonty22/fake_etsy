@@ -46,6 +46,7 @@ class ItemsController < ApplicationController
     def change_item_listing
         @item.change_listing_status
         if @item.valid?
+            @item.save
             redirect_to my_shop_shop_path(current_user.shop)
         else
             flash["relist_error"] = "You cannot re-list an item for a deactivated shop"

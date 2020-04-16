@@ -23,4 +23,14 @@ class ApplicationController < ActionController::Base
         session[:cart] ||= []
     end
 
+    def analytics
+        @total_shops = Shop.total_shops
+        @active_shops = Shop.active_shops
+        @inactive_shops = Shop.inactive_shops
+        @items_sold = Item.items_sold
+        @items_listed = Item.items_listed
+        @items_unlisted = Item.items_unlisted
+        @gross_revenue = Item.gross_revenue
+    end
+
 end

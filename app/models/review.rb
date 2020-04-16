@@ -19,8 +19,10 @@ class Review < ApplicationRecord
     def duplicate_reviews
         #verify that the current user has not already reviewed this item. 
         user = User.find(user_id)
-        if user.reviewed_item_ids.include?(item_id)
-            errors.add(:item_id, "You cannot write more than one review for an item.")
+        if self.id == nil
+            if user.reviewed_item_ids.include?(item_id)
+                errors.add(:item_id, "You cannot write more than one review for an item.")
+            end
         end
     end
 

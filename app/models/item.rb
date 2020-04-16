@@ -11,13 +11,12 @@ class Item < ApplicationRecord
 
     def change_listing_status
         self.listed = !self.listed
-        #self.save
     end
 
     def check_shop_status
         shop = Shop.find(shop_id)
-        if listed && shop.status == false 
-            "You cannot re-list an item for a shop that is deactivated."
+        if shop.status == false 
+            errors.add(:shop_id, "You cannot re-list an item or add an item for a shop that is deactivated")
         end
     end
 
@@ -29,5 +28,22 @@ class Item < ApplicationRecord
             end
             average = (sum / self.reviews.length).to_f.round(2)
         end
+    end
+
+
+    def self.items_sold
+        OrderItem.all.count
+    end
+
+    def self.items_listed
+        self.all.where(listed: true).count
+    end
+
+    def self.items_unlisted
+        self.all.where(listed: false).count
+    end
+
+    def self.gross_revenue
+        OrderItem.all.map {|order_item| order_item.item.price}.sum
     end
 end

@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   patch '/items/:id/status', to: "items#change_item_listing", as: "status"
   patch '/shops/:id/status', to: "shops#change_shop_status", as: "shop_status"
 
+  get "/analytics", to: "application#analytics"
+
   #build a homepage someday
 
 

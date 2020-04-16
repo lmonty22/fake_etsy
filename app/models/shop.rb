@@ -9,7 +9,6 @@ class Shop < ApplicationRecord
     validates :description, presence: true
     validates_uniqueness_of :user, message: "cannot have more than one shop."
 
-
     def listed_items
         self.items.select do |item|
             item.listed == true
@@ -26,6 +25,18 @@ class Shop < ApplicationRecord
     def change_status
         self.status = !self.status
         self.save
+    end
+
+    def self.total_shops
+        self.all.count
+    end
+
+    def self.active_shops
+        self.all.where(status: true).count
+    end
+
+    def self.inactive_shops
+        self.all.where(status: false).count
     end
 
 end
