@@ -5,7 +5,7 @@
   <div class="notification">
 
 <div class="columns">
-    <div class="column" style=" display: flex; justify-content: flex-end;" >
+    <div class="column" style=" display: flex; justify-content: center;" >
     <figure class="image is-128x128" > <%=avatar(@user.id, User, "is-rounded")%></figure> 
     </div>
      <div class="column is-four-fifths">
@@ -30,34 +30,34 @@
 <hr>
 <br>
 
-<h2>Your Order History</h2>
+<h2>Your Order History (<%= @user.total_orders %>)</h2>
 
     <% @user.orders.each do |order| %>
 <div class="container">
   <div class="notification">
 
-    <div>Date Ordered: <%= order.created_at %></div>
-    <div>Order Number: <%= order.id %></div>
-    <div>Order Total: <%= order.total%> </div>
+    <div>Date Ordered: <strong><%= order.created_at %></strong></div>
+    <div>Order Number: <strong><%= order.id %></strong></div>
     <div>Items in Order: </div>
+    <br>
+
     <% order.items.each do |item| %>
-        
-    <div class="columns">
-        <div class="column"><%= avatar(item.id, Item) %> </div>
-
-        <div class="column">
-            <div>Item Name: <%= link_to item.name, item_path(item) %></div>
-            <div>From Shop: <%= link_to item.shop.name, shop_path(item.shop) %></div>
-            <%if @user.reviewed_item_ids.include?(item.id)%>
-                <% review = Review.find_by(user: @user, item: item) %>
-                <%= link_to "Edit your review for this item", edit_review_path(review) %>
-             <%else %>
-                 <%= link_to "Write A Review For This Item", {controller: "reviews", action: "new", item: item.id} %><br>
-             <%end%>
-        <% end %>
-    </div>
-
-    </div>
+        <div class="columns">
+            <div class="column"><%= avatar(item.id, Item, "image is-128x128") %> </div>
+            <div class="column is-two-thirds">
+                <div>Item Name: <%= link_to item.name, item_path(item) %></div>
+                <div>From Shop: <%= link_to item.shop.name, shop_path(item.shop) %></div>
+                <%if @user.reviewed_item_ids.include?(item.id)%>
+                    <% review = Review.find_by(user: @user, item: item) %>
+                    <%= link_to "Edit your review for this item", edit_review_path(review) %>
+                <%else %>
+                    <%= link_to "Write A Review For This Item", {controller: "reviews", action: "new", item: item.id} %><br>
+                <%end%>
+            </div>
+            <div class="column"><%= number_to_currency(item.price)%> </div>
+        </div>
+    <% end %>
+     <div>Order Total: <strong><%= number_to_currency(order.total)%></strong></div>
 </div>
 <hr>
 <% end %>

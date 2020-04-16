@@ -1,9 +1,35 @@
-<h1>Shops Index</h1>
+<h1>Browse Shops</h1>
 
+<div class="columns is-multiline is-mobile">
 <% @shops.each do |shop| %>
-    <ul>
         <% if shop.status == true %>
-        <li><%= link_to shop.name, shop_path(shop) %></li>  
-        <% end %>
-    </ul>
+            <div class="column is-one-quarter">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-2by1">
+                            <%= avatar(shop.id, Shop) %>
+                        </figure>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image is-48x48">
+                                    <%= avatar(shop.user.id, User) %>
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <p class="title is-4"><%= link_to shop.name, shop_path(shop) %></p>
+                                <p class="subtitle is-6"><%= shop.user.username %></p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <p><%= shop.description %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <% end %>
 <% end %>
+</div>
