@@ -40,6 +40,7 @@
 <% review = Review.find_by(user: current_user, item: @item) %>
 <% if review %>
     <h4> Your Review for this item </h4>
+    <div>From User: <%= avatar(review.user.id, User) %> <%= review.user.username %></div>
     <div>Title: <%= review.title %></div>
     <div>Rating: <%= review.rating %></div>
     <div>Review: <%= review.content %></div>
@@ -51,10 +52,10 @@
 <!-- All the reviews -->
 
 <% if @item.reviews.length > 0 %>
- <h2>All Other Reviews</h2>
+ <h2>All Reviews</h2>
     <% @item.reviews.each do |r| %>
         <% if r != review %>
-            <div>From User: <%= r.user.username %></div>
+            <div>From User: <%= avatar(r.user.id, User) %> <%= r.user.username %></div>
             <div>Title: <%= r.title %></div>
             <div>Rating: <%= r.rating %></div>
             <div>Review: <%= r.content %></div><hr>

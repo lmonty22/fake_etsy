@@ -1,3 +1,5 @@
+require 'open-uri'
+
 User.destroy_all
 Shop.destroy_all
 Item.destroy_all
@@ -5,24 +7,43 @@ Order.destroy_all
 OrderItem.destroy_all
 Review.destroy_all
 
-100.times {User.create(username: Faker::Games::Dota.hero, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, password: "password")}
-# 10.times {Shop.create(user: User.order('RANDOM()').first, name: Faker::Games::Pokemon.name, description: Faker::Games::Pokemon.move)}
-100.times {Shop.create(user: User.all.sample, name: Faker::Company.name , description: Faker::Hipster.paragraph)}
-100.times {Item.create(shop: Shop.all.sample, name: Faker::Commerce.product_name, price: Faker::Commerce.price, quantity: rand(1..100), listed: Faker::Boolean.boolean, description: Faker::Hipster.paragraph)}
 100.times {
-    order = Order.create(user: User.all.sample)
-    OrderItem.create(item: Item.all.sample, order: order)
-    }
-    
-100.times {
-        order = Order.create(user: User.all.sample)
-        OrderItem.create(item: Item.all.sample, order: order)
-        OrderItem.create(item: Item.all.sample, order: order)
-        }
+            downloaded_image = open("https://loremflickr.com/320/240/person")
+            user = User.new(username: Faker::Game.title, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, password: "password")
+            user.image.attach(io: downloaded_image, filename: "#{rand(1..1000)}.jpg")
+            user.save
+          }
 
-# image: Faker::Company.logo
-# image: Faker::Avatar.image
-# image: Faker::Placeholdit.image
+100.times {
+            downloaded_image = open(Faker::Company.logo)
+            shop = Shop.new(user: User.all.sample, name: Faker::Company.name , description: Faker::Hipster.paragraph)
+            shop.image.attach(io: downloaded_image, filename: "#{rand(1001..2000)}.jpg")
+            shop.save
+          }
+
+1000.times {
+            downloaded_image = open("https://loremflickr.com/320/240/object")
+            item = Item.new(shop: Shop.all.sample, name: Faker::Commerce.product_name, price: Faker::Commerce.price, quantity: rand(1..100), listed: Faker::Boolean.boolean, description: Faker::Hipster.paragraph)
+            item.image.attach(io: downloaded_image, filename: "#{rand(2001..3000)}.jpg")
+            item.save
+           }
+
+1000.times {
+            order = Order.create(user: User.all.sample)
+            OrderItem.create(item: Item.all.sample, order: order)
+           }
+    
+1000.times {
+            order = Order.create(user: User.all.sample)
+            OrderItem.create(item: Item.all.sample, order: order)
+            OrderItem.create(item: Item.all.sample, order: order)
+           }
+
+1000.times {
+    user = User.all.sample
+    item = user.items.sample
+    Review.create(user: user, item: item, title: Faker::Job.title, content: Faker::Hipster.sentence, rating: rand(1..5))
+    }
 
 user1 = User.create(username: "lmonty22", first_name: "Lindsay", last_name: "Montgomery", password: "password")
 user2 = User.create(username: "bret-gib", first_name: "Bret", last_name: "Gibson", password: "password")
