@@ -22,4 +22,8 @@ class User < ApplicationRecord
             review.item_id
         end
     end
+
+    def total_orders
+        self.orders.count
+    end
 end

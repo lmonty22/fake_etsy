@@ -1,11 +1,10 @@
 <div class="add_to_cart"><%= flash[:add_to_cart]%> </div>
 
-<div><%= avatar(@shop.id, Shop) %></div>
-
 <% if @shop.status == false %>
     <h1>This shop is no longer active!</h1>
 <% end %>
-
+<figure class="image is-128x128" ><div><%= avatar(@shop.id, Shop) %></div>
+</figure>
 <h1><%= @shop.name %></h1>
 <h4> By: <%= @shop.user.first_name%> <%= @shop.user.last_name %></h4>
 <p><%= @shop.description %></p>

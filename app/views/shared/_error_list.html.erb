@@ -1,7 +1,10 @@
 <% if new_object.errors %>
-    <ul>
-        <% new_object.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-        <% end %>
-    </ul>
+<div class="container">
+  <div class="notification">
+    <% new_object.errors.full_messages.each do |message| %>
+        <%= message %>
+      </div>
+    </div>
+    <% end %>
 <% end %>
+

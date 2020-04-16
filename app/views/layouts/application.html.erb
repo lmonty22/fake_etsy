@@ -4,21 +4,41 @@
     <title>FakeEtsy</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%# <link rel=“stylesheet” href=“styles/debug.css”> %>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <% if logged_in? %>  
-      <div>Welcome to our fake etsy, <%= current_user.first_name %></div>
-      <div><%= link_to "Logout", logout_path %></div>
-      <div><%= link_to "My Profile", user_path(current_user) %></div>
-      <div><%= link_to "View Shops", shops_path %></div>
-      <div><%= link_to "My Cart (#{current_cart.length})", my_cart_path(current_user) %> </div>
-    <% else %>
-      <div><%= link_to "Login", login_path %></div>
-    <% end %>
+   <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <div class="navbar-item"><%= link_to "View Shops", shops_path %></div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+       <% if logged_in? %>  
+      <div> <%= current_user.username %></div>
+          <%= link_to "My Profile", user_path(current_user), {class: "button is-light"}%>
+          <% if current_user.shop %>
+               <%= link_to "Manage my Shop", my_shop_shop_path(current_user.shop), {class: "button is-light"}%>
+          <%end %>
+          <%= link_to "My Cart (#{current_cart.length})", my_cart_path(current_user), {class: "button is-light"} %>
+           <a class="button is-primary" href=<%=logout_path%>><strong>Logout</strong> </a>
+        <%else%>
+        <div><%= link_to "Login", login_path, class: "button is-light" %></div>
+        <div><%= link_to "Sign Up", new_user_path, class: "button is-primary" %></div>
+        <%end%>
+      </div>
+      </div>
+  </nav>
+  <section class="section">
     <%= yield %>
+  </section>
   </body>
 </html>
+

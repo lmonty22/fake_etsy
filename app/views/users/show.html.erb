@@ -1,49 +1,65 @@
-<h1>User Details</h1>
 
-<%= link_to "Logout", logout_path %>
-<!--<% if @user.image.attached? %>
-    <div><%= image_tag(@user.image, style: "width:100px") %></div>
-<% else %>
-    <div><%= image_tag("/public/no_image_placeholder_1.jpg", style: "width:100px") %></div>
-<% end %>-->
 
-<div><%= avatar(@user.id, User) %></div>
+<h1>My Dashboard</h1>
+<div class="container">
+  <div class="notification">
 
-<p><%= @user.first_name %> <%= @user.last_name %></p>
-<p><%= @user.username %></p>
+<div class="columns">
+    <div class="column" style=" display: flex; justify-content: flex-end;" >
+    <figure class="image is-128x128" > <%=avatar(@user.id, User, "is-rounded")%></figure> 
+    </div>
+     <div class="column is-four-fifths">
+    <p>Name: <%= @user.first_name %> <%= @user.last_name %></p>
+    <p>Username: <%= @user.username %></p>
+    <%= link_to "Edit Profile", edit_user_path(@user) %>
+    <br>
+    <% if @user.shop %>
+        <%= link_to "View My Shop", my_shop_shop_path(@user.shop) %>
+    <% else %>
+        <%= link_to "Create a Shop", new_shop_path %>
+    <% end %>
+        </div>
+  
+    </div>
+  </div>
+</div>
 
-<% if @user.shop %>
-    <%= link_to "View My Shop", my_shop_shop_path(@user.shop) %>
-<% else %>
-    <%= link_to "Create a Shop", new_shop_path %>
-<% end %>
+
+
+
+<hr>
+<br>
 
 <h2>Your Order History</h2>
 
-<% @user.orders.each do |order| %>
-<ul>
-<li>Date Ordered: <%= order.created_at %></li>
-<li>Order Number: <%= order.id %></li>
-<%total = 0 %>
-<li>Items in Order: <% order.items.each do |item| %>
-    <ul>
-        <% total += item.price%>
-        <li><%= avatar(item.id, Item) %></li>
-        <li>Item Name: <%= link_to item.name, item_path(item) %></li>
-        <li>From Shop: <%= link_to item.shop.name, shop_path(item.shop) %></li>
-        <%if @user.reviewed_item_ids.include?(item.id)%>
+    <% @user.orders.each do |order| %>
+<div class="container">
+  <div class="notification">
+
+    <div>Date Ordered: <%= order.created_at %></div>
+    <div>Order Number: <%= order.id %></div>
+    <div>Order Total: <%= order.total%> </div>
+    <div>Items in Order: </div>
+    <% order.items.each do |item| %>
+        
+    <div class="columns">
+        <div class="column"><%= avatar(item.id, Item) %> </div>
+
+        <div class="column">
+            <div>Item Name: <%= link_to item.name, item_path(item) %></div>
+            <div>From Shop: <%= link_to item.shop.name, shop_path(item.shop) %></div>
+            <%if @user.reviewed_item_ids.include?(item.id)%>
                 <% review = Review.find_by(user: @user, item: item) %>
-        <li><%= link_to "Edit your review for this item", edit_review_path(review) %>
-        <%else %>
-        <li><%= link_to "Write A Review For This Item", {controller: "reviews", action: "new", item: item.id} %></li><br>
-        <%end%>
-    </ul>
-</li>
-<% end %>
-<div>Order Total: <%= number_to_currency(total) %>
-</ul>
+                <%= link_to "Edit your review for this item", edit_review_path(review) %>
+             <%else %>
+                 <%= link_to "Write A Review For This Item", {controller: "reviews", action: "new", item: item.id} %><br>
+             <%end%>
+        <% end %>
+    </div>
+
+    </div>
+</div>
 <hr>
 <% end %>
 
-<%= link_to "Edit Profile", edit_user_path(@user) %>
 <%= link_to "Delete Account", user_path(@user), :method => :delete%>

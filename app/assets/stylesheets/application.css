@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+ h1 { font-size: 30px;
+ }
+
+ h2 { font-size: 25px;
+
+}
+
+
+ #profile {
+    float: right;
+ }
