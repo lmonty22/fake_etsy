@@ -5,7 +5,6 @@
 <h1 style="color:red"><%= flash["relist_error"] %></h1><br>
 
 
-
 <div class="container">
     <div class="notification">
         <div class="columns">
@@ -13,14 +12,16 @@
             <div class="column is-two-fifths">
 
                 <h1><strong><%= @shop.name %></strong></h1>
-                <h4> By: <%= @shop.user.first_name%> <%= @shop.user.last_name %></h4><br>
+                <h4> By: <%= @shop.user.username %></h4><br>
                 <p><%= @shop.description %></p>
             </div>
             <div class="column is-two-fifths" style="display:flex; flex-direction:column; justify-content:flex-end; align-items: center;">
+                <div>Number of Items Sold: <strong><%= @shop.items_sold%></strong></div>
+                <div>Money Made: <strong><%= number_to_currency(@shop.revenue)%></strong></div>
                 <div><%= link_to "Add item(s) to this shop", new_item_path %></div>
                 <div><%= link_to "Edit Shop Details",  edit_shop_path(@shop)%></div>
-                <div>Number of Items Sold: <%= @shop.items_sold%></div>
-                <div><%= link_to "Public Shop Link", shop_path(@shop) %></div>
+                <div><%= link_to "View Shop Order History", shop_orders_path(@shop) %></div>
+                <div><%= link_to "Public Shop Profile", shop_path(@shop) %></div>
             <div>
                 <% if @shop.status%>
                     <%= link_to "Deactivate this shop", shop_status_path(@shop), :method => :patch%>

@@ -25,12 +25,22 @@ class Shop < ApplicationRecord
         self.order_items.count
     end
 
+    def revenue
+        self.order_items.map do |order_item|
+            order_item.item.price
+        end.sum
+    end
 
+    
     def change_status
         self.status = !self.status
         self.save
     end
-
+    
+    def self.all_active_shops
+        self.all.where(status: true)
+    end
+    
     def self.total_shops
         self.all.count
     end

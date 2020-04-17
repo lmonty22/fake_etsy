@@ -1,6 +1,6 @@
 class ShopsController < ApplicationController
 
-    before_action :set_shop, only: [:show, :edit, :update, :shop_owner_show, :change_shop_status]
+    before_action :set_shop, only: [:show, :edit, :update, :shop_owner_show, :change_shop_status, :shop_orders]
     before_action :authorized, except: [:show, :index]
 
     def index
@@ -29,6 +29,11 @@ class ShopsController < ApplicationController
     end
 
     def shop_owner_show
+        if @shop.user == current_user
+            render :shop_owner_show
+        else
+            redirect_to shops_path
+        end
     end
 
     def edit
@@ -55,6 +60,14 @@ class ShopsController < ApplicationController
         end
         @shop.change_status
         redirect_to my_shop_shop_path(current_user.shop)
+    end
+
+    def shop_orders
+        if @shop.user == current_user
+            render :shop_orders
+        else
+            redirect_to shops_path
+        end
     end
 
     private

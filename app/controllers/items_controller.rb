@@ -3,7 +3,9 @@ class ItemsController < ApplicationController
     before_action :authorized, except: [:show, :index, :home]
 
     def home
-        @items = Item.all_listed_items.sample(20)
+        @items = Item.all_listed_items.sample(4)
+        @shops = Shop.all_active_shops.sample(4)
+
     end
 
     def index

@@ -1,0 +1,17 @@
+<h2>Shop Order History (<%= @shop.items_sold %>)</h2>
+<% @shop.order_items.each do |order_item| %>
+<div class="container">
+  <div class="notification">
+
+    <div>Date Ordered: <strong><%= order_item.created_at %></strong></div>
+    <div>Order Number: <strong><%= order_item.order.id %></strong></div>
+        <div class="columns">
+            <div class="column"><%= avatar(order_item.item.id, Item, "image is-128x128") %> </div>
+            <div class="column is-two-thirds">
+                <div>Item Name: <%= link_to order_item.item.name, item_path(order_item.item) %></div>
+            </div>
+            <div>Ordered By: <%= order_item.order.user.username %></div>
+        </div>
+</div>
+<hr>
+<% end %>

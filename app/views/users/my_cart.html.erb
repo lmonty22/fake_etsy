@@ -18,7 +18,7 @@
                  </div>   
                 <hr>
         <%end%>  
-            <div style="display:flex; justify-content:flex-end;"> Total: <%=number_to_currency(cart_total)%> </div>
+            <div style="display:flex; justify-content:flex-end;">Total:<strong><%=number_to_currency(cart_total)%></strong> </div>
             <strong><div style="display:flex; justify-content:flex-end;"><%= link_to "Check Out", checkout_path(current_user), :method => :post, class: "button is-primary" %></strong>
     <%else %>
         <h3> Your cart is empty</h3>

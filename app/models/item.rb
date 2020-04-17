@@ -26,7 +26,7 @@ class Item < ApplicationRecord
             self.reviews.each do |review|
                 sum += review.rating
             end
-            average = (sum / self.reviews.length).to_f.round(2)
+            average = (sum.to_f / self.reviews.length.to_f).round(2)
         end
     end
 

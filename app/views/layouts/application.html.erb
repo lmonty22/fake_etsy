@@ -16,7 +16,9 @@
 
    <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
+      <div class="navbar-item"><%= link_to "Home", home_path, {class: "button is-light"} %></div>
       <div class="navbar-item"><%= link_to "Browse Shops", shops_path, {class: "button is-primary"} %></div>
+      <div class="navbar-item" style="padding:5px; font-size:26px">Fake Etsy</div>
     </div>
 
     <div class="navbar-end">
@@ -30,8 +32,8 @@
           <div style="padding:5px"><%= link_to "My Cart (#{current_cart.length})", my_cart_path(current_user), {class: "button is-light"} %></div>
           <div style="padding:5px"><a class="button is-primary" href=<%=logout_path%>><strong>Logout</strong> </a></div>
         <%else%>
-          <div style="padding:5px">><%= link_to "Login", login_path, class: "button is-light" %></div>
-          <div style="padding:5px">><%= link_to "Sign Up", new_user_path, class: "button is-primary" %></div>
+          <div style="padding:5px"><%= link_to "Login", login_path, class: "button is-light" %></div>
+          <div style="padding:5px"><%= link_to "Sign Up", new_user_path, class: "button is-primary" %></div>
         <%end%>
       </div>
     </div>

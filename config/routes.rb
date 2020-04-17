@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/', to: "items#home", as: "home"
   patch '/items/:id/status', to: "items#change_item_listing", as: "status"
   patch '/shops/:id/status', to: "shops#change_shop_status", as: "shop_status"
+  get '/shops/:id/shop_orders', to: "shops#shop_orders", as: "shop_orders"
 
   get "/analytics", to: "application#analytics"
 
