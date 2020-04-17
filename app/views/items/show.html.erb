@@ -49,7 +49,7 @@
                 <div class="columns">
                         <div class="column"><div style="display:flex; justify-content:center;"><%= avatar(current_user.id, User,"image is-64x64") %> </div> </div>
                         <div class="column is-four-fifths">
-                            <div><strong> <%= @user_review.title %> (<%= @user_review.rating %> stars)</strong> by@<%= @user_review.user.username %> </div>
+                            <div><strong> <%= @user_review.title %> (<%= @user_review.rating %> stars)</strong> by: @<%= @user_review.user.username %> </div>
                             <div><%= @user_review.content %></div>
                             <%= link_to 'Edit your review', edit_review_path(@user_review) %>
                             <%= link_to 'Delete your review', review_path(@user_review), :method => :delete %>
@@ -74,7 +74,7 @@
                         <% if r != @user_review  %>
                         <div class="column"><div style="display:flex; justify-content:center;"><%= avatar(r.user.id, User,"image is-64x64") %> </div> </div>
                         <div class="column is-four-fifths">
-                            <div><strong> <%= r.title %> (<%= r.rating %> stars)</strong> by@<%= r.user.username %> </div>
+                            <div><strong> <%= r.title %> (<%= r.rating %> stars)</strong> by: @<%= r.user.username %> </div>
                             <div><%= r.content %></div>
                              <hr>
                         </div>

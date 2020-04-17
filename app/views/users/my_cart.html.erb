@@ -1,24 +1,32 @@
 <h1>My Cart</h1>
-<%= flash[:remove_from_cart]%>
-<% total = 0 %>
-<ul>
-<% if current_cart.length > 0 %>
-    <% current_cart.each do |i| %>
-    <% item = Item.find(i) %>
-    <li> <%= link_to item.name, item_path(item) %> </li>
-    <ul> 
-    <li><%= avatar(item.id, Item) %></li>
-    <li> Price:<%= number_to_currency(item.price)%></li>
-    <li> Shop: <%= link_to item.shop.name, shop_path(item.shop) %> </li>
-    <% total += item.price%>
-    <li> <%= link_to "Remove from Cart", remove_from_cart_path(item), :method => :post %> </li>
-    </ul>
-    <%end %>
+<div class="container">
+  <div class="notification">
+    <%= flash[:remove_from_cart]%>
+        <% if current_cart.length > 0 %>
+            <% current_cart.each do |i| %>
+                <div class="columns">
+                    <div class="column">
+                         <% item = Item.find(i) %>
+                        <figure class="image is-square"><%= avatar(item.id, Item) %></figure>
+                    </div>
+                    <div class="column is-four-fifths" style="display: flex; flex-direction: column;">
+                        <strong><%= link_to item.name, item_path(item) %></strong>
+                        <div>Shop: <%= link_to item.shop.name, shop_path(item.shop) %></div>
+                        <div>Price:<%= number_to_currency(item.price)%></div>
+                        <%= link_to "Remove from Cart", remove_from_cart_path(item), :method => :post %> 
+                    </div>
+                 </div>   
+                <hr>
+        <%end%>  
+            <div style="display:flex; justify-content:flex-end;"> Total: <%=number_to_currency(cart_total)%> </div>
+            <strong><div style="display:flex; justify-content:flex-end;"><%= link_to "Check Out", checkout_path(current_user), :method => :post %></strong>
+    <%else %>
+        <h3> Your cart is empty</h3>
+        <div>
+    <%end%>
+</div>
+</div>
 
-    <% if current_cart.length > 0 %>
-    <div> Total: <%= number_to_currency(total) %> </div>
-    <div> <%= link_to "Check Out", checkout_path(current_user), :method => :post %>
-    <% end %>
-<%else %>
-<h4> Your cart is empty</h4>
-<%end%>
+
+
+

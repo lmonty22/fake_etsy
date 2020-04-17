@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
     helper_method :logged_in?
     helper_method :authorized
     helper_method :current_cart
+    helper_method :cart_total
 
     def current_user
         User.find_by(id: session[:user_id])
@@ -31,6 +32,15 @@ class ApplicationController < ActionController::Base
         @items_listed = Item.items_listed
         @items_unlisted = Item.items_unlisted
         @gross_revenue = Item.gross_revenue
+    end
+
+    def cart_total
+        total = 0 
+        current_cart.each do |i|
+            item = Item.find(i)
+            total += item.price
+        end
+        total
     end
 
 end
