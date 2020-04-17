@@ -4,10 +4,6 @@
     <h1 style="color:red">This shop is no longer active!</h1>
 <% end %>
 
-<% if @shop.user == current_user %>
-<%= link_to "Manage My Shop", my_shop_shop_path(@shop), {class: "button is-light"}%>
-<% end %>
-
 <div class="container">
     <div class="notification">
         <div class="columns">

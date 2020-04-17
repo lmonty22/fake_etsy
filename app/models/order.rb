@@ -7,5 +7,9 @@ class Order < ApplicationRecord
         self.items.all.map {|item| item.price}.sum
     end
 
+    def num_of_items
+        self.items.count
+    end
+
    
 end

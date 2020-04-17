@@ -1,6 +1,10 @@
 class ItemsController < ApplicationController
     before_action :set_item, only: [:show, :edit, :update, :add_to_cart, :change_item_listing]
-    before_action :authorized, except: [:show, :index]
+    before_action :authorized, except: [:show, :index, :home]
+
+    def home
+        @items = Item.all_listed_items.sample(20)
+    end
 
     def index
         @items = Item.all

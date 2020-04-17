@@ -46,4 +46,8 @@ class Item < ApplicationRecord
     def self.gross_revenue
         OrderItem.all.map {|order_item| order_item.item.price}.sum
     end
+
+    def self.all_listed_items
+        self.all.where(listed: true)
+    end
 end

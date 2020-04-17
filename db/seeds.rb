@@ -54,7 +54,9 @@ shop1 = Shop.create(user_id: user1.id, name: "Lindsay's shop ", description: "Th
 shop1.image.attach(io: File.open('app/assets/images/shop.png'), filename: 'shop.png')
 
 item1 = Item.create(name: "Face Mask", shop_id: shop1.id, price: 10.00, quantity: 30, description: "Protects against COVID-19 spread.")
+item1.image.attach(io: File.open('app/assets/images/face_mask.jpg'), filename: 'face_mask.jpg')
 item2 = Item.create(name: "Dog bandana", shop_id: shop1.id, price: 25.00, quantity: 10, description: "Makes your dog look cool.")
+item1.image.attach(io: File.open('app/assets/images/dog_bandana.webp'), filename: 'dog_bandana.webp')
 order1 = Order.create(user_id: user2.id )
 oi1 = OrderItem.create(order_id: order1.id, item_id: item1.id)
 oi2 = OrderItem.create(order_id:order1.id, item_id: item2.id)

@@ -6,7 +6,7 @@
 
 <div class="columns">
     <div class="column" style=" display: flex; justify-content: center;" >
-    <figure class="image is-128x128" > <%=avatar(@user.id, User, "is-rounded")%></figure> 
+    <figure class="image is-128x128"> <%=avatar(@user.id, User, "image is-128x128 is-rounded")%></figure> 
     </div>
      <div class="column is-four-fifths">
     <p>Name: <%= @user.first_name %> <%= @user.last_name %></p>
@@ -34,7 +34,7 @@
 
     <div>Date Ordered: <strong><%= order.created_at %></strong></div>
     <div>Order Number: <strong><%= order.id %></strong></div>
-    <div>Items in Order: </div>
+    <div>Items in Order: <strong><%= order.num_of_items %></strong></div>
     <br>
     <% order.items.each do |item| %>
         <div class="columns">

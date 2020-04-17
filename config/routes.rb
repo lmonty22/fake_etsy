@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   post '/items/:id/remove_from_cart', to: 'items#remove_from_cart', as: "remove_from_cart"
   get 'users/:id/my_cart', to: "users#my_cart", as: "my_cart"
   post '/users/:id/my_cart', to: "order_items#checkout", as: "checkout"
-  get '/', to: "shops#index"
+  get '/', to: "items#home", as: "home"
   patch '/items/:id/status', to: "items#change_item_listing", as: "status"
   patch '/shops/:id/status', to: "shops#change_shop_status", as: "shop_status"
 

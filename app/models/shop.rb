@@ -21,6 +21,10 @@ class Shop < ApplicationRecord
         end 
     end
 
+    def items_sold
+        self.order_items.count
+    end
+
 
     def change_status
         self.status = !self.status

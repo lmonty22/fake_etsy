@@ -73,19 +73,18 @@
     <h3>All Reviews (Average Rating: <%= @item.average_rating %>)</h3>
         <div class="container">
             <div class="notification">
-                <div class="columns">
                     <% @item.reviews.each do |r| %>
+                        <div class="columns">
                         <% if r != @user_review  %>
                         <div class="column"><div style="display:flex; justify-content:center;"><%= avatar(r.user.id, User,"image is-64x64") %> </div> </div>
                         <div class="column is-four-fifths">
                             <div><strong> <%= r.title %> (<%= r.rating %> stars)</strong> by: @<%= r.user.username %> </div>
                             <div><%= r.content %></div>
+                        </div>
                              <hr>
                         </div>
                         <%end%>
                     <%end%>
-
-                </div>
             </div>
         </div>
 <%else%>
