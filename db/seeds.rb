@@ -9,14 +9,14 @@ Review.destroy_all
 
 100.times {
             downloaded_image = open("https://loremflickr.com/320/240/person")
-            user = User.new(username: Faker::Game.title, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, password: "password")
+            user = User.new(username: Faker::Twitter.screen_name, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, password: "password")
             user.image.attach(io: downloaded_image, filename: "#{rand(1..1000)}.jpg")
             user.save
           }
 
 100.times {
             downloaded_image = open(Faker::Company.logo)
-            shop = Shop.new(user: User.all.sample, name: Faker::Company.name , description: Faker::Hipster.paragraph)
+            shop = Shop.new(user: User.all.sample, name: Faker::Book.title, description: Faker::Hipster.paragraph)
             shop.image.attach(io: downloaded_image, filename: "#{rand(1001..2000)}.jpg")
             shop.save
           }
@@ -50,8 +50,11 @@ user2 = User.create(username: "bret-gib", first_name: "Bret", last_name: "Gibson
 user1.image.attach(io: File.open('app/assets/images/headshot4.png'), filename: 'headshot4.png')
 user2.image.attach(io: File.open('app/assets/images/50393443.jpg'), filename: '50393443.jpg')
 
-shop1 = Shop.create(user_id: user1.id, name: "Lindsay's shop ", description: "Things I could never make. ")
-shop1.image.attach(io: File.open('app/assets/images/shop.png'), filename: 'shop.png')
+
+downloaded_image = open(Faker::Company.logo)
+shop1 = Shop.new(user_id: user1.id, name: "Lindsay's shop ", description: "Things I could never make.")
+shop1.image.attach(io: downloaded_image, filename: "sample.jpg")
+shop1.save
 
 item1 = Item.create(name: "Face Mask", shop_id: shop1.id, price: 10.00, quantity: 2, description: "Protects against COVID-19 spread.")
 item1.image.attach(io: File.open('app/assets/images/face_mask.jpg'), filename: 'face_mask.jpg')
