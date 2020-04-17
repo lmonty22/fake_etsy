@@ -1,40 +1,113 @@
 <h1>Shop Admin Page</h1>
-
-<p><%= @shop.user.first_name%> <%= @shop.user.last_name %></p>
-
-<div><%= avatar(@shop.id, Shop) %></div>
-
 <% if @shop.status == false %>
-    <h1>This shop is no longer active!</h1>
+    <h1 style="color:red">This shop is no longer active!</h1>
 <% end %>
+<h1 style="color:red"><%= flash["relist_error"] %></h1><br>
 
-<p><%= @shop.name %></p>
-<p><%= @shop.description %></p>
+<div><%= link_to "Add item(s) to this shop", new_item_path %></div>
+<div></div><%= link_to "Edit Shop Details",  edit_shop_path(@shop)%></div>
 
-<h3>For sale:</h3>
-<% @shop.listed_items.each do |item| %>
-<ul>
-    <li><%= link_to item.name, item_path(item) %> - <%= link_to "Unlist this item", status_path(item), :method => :patch%></li>
-</ul>
-<% end %>
-
-<%= flash["relist_error"] %>
-
-<% if !@shop.unlisted_items.empty? %>
-    <h3>Unlisted Items:</h3>
-    <% @shop.unlisted_items.each do |item| %>
-        <ul>
-            <li><%= link_to item.name, item_path(item) %> - <%= link_to "Re-list this item", status_path(item), :method => :patch%></li>
-        </ul>
-    <% end %>
-<% end %>
-
-<%= link_to "Add item(s) to this shop", new_item_path %>
-<%= link_to "Edit this shop",  edit_shop_path(@shop)%>
-
-
+<div>
 <% if @shop.status%>
 <%= link_to "Deactivate this shop", shop_status_path(@shop), :method => :patch%>
 <%else %>
-    <%= link_to "Re-activate this shop", shop_status_path(@shop), :method => :patch%>
+<%= link_to "Re-activate this shop", shop_status_path(@shop), :method => :patch%>
+<% end %>
+</div>
+
+<br>
+<br>
+<div class="container">
+    <div class="notification">
+        <div class="columns">
+            <div class="column is-one-third">
+                <figure class="image" style="width:200px;"><%= avatar(@shop.id, Shop) %>
+            </figure>
+
+            </div>
+        </div>
+        <h1><strong><%= @shop.name %></strong></h1>
+        <h4> By: <%= @shop.user.first_name%> <%= @shop.user.last_name %></h4><br>
+        <p><%= @shop.description %></p>
+    </div>
+</div><br>
+
+<% if !@shop.listed_items.empty? %>
+<h3>Items For Sale</h3>
+<div class="columns is-multiline is-mobile">
+    <% @shop.listed_items.each do |item| %>
+        <div class="column is-one-quarter">
+            <a href="/items/<%=item.id%>">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-2by1">
+                            <%= avatar(item.id, Item) %>
+                        </figure>
+                    </div>
+
+                    <div class="card-content">
+                    <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4"><%= link_to item.name, item_path(item) %></p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <p><%= item.description %></p>
+                        </div>
+                        <div class="content">
+                            <p><strong><%= number_to_currency(item.price) %></strong></p>
+                        </div>
+                        <div class="content">
+                            <p>In Stock: <%= item.quantity %></p>
+                        </div>
+                        <div class="content">
+                            <%= link_to "Unlist this item", status_path(item), :method => :patch%>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    <% end %>
+</div>
+<% end %>
+
+<% if !@shop.unlisted_items.empty? %>
+<h3>Unlisted Items</h3>
+<div class="columns is-multiline is-mobile">
+    <% @shop.unlisted_items.each do |item| %>
+        <div class="column is-one-quarter">
+            <a href="/items/<%=item.id%>">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-2by1">
+                            <%= avatar(item.id, Item) %>
+                        </figure>
+                    </div>
+
+                    <div class="card-content">
+                    <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4"><%= link_to item.name, item_path(item) %></p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <p><%= item.description %></p>
+                        </div>
+                        <div class="content">
+                            <p><strong><%= number_to_currency(item.price) %></strong></p>
+                        </div>
+                        <div class="content">
+                            <p>In Stock: <%= item.quantity %></p>
+                        </div>
+                        <div class="content">
+                            <%= link_to "Re-list this item", status_path(item), :method => :patch%>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    <% end %>
+</div>
 <% end %>

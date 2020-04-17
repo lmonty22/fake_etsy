@@ -1,22 +1,58 @@
 <div class="add_to_cart"><%= flash[:add_to_cart]%> </div>
 
 <% if @shop.status == false %>
-    <h1>This shop is no longer active!</h1>
+    <h1 style="color:red">This shop is no longer active!</h1>
 <% end %>
-<figure class="image is-128x128" ><div><%= avatar(@shop.id, Shop) %></div>
-</figure>
-<h1><%= @shop.name %></h1>
-<h4> By: <%= @shop.user.first_name%> <%= @shop.user.last_name %></h4>
-<p><%= @shop.description %></p>
 
-<h3>For sale:</h3>
-<% @shop.listed_items.each do |item| %>
-<ul>
-    <li><%=link_to item.name, item_path(item) %></li>
-</ul>
-<% end %>
 <% if @shop.user == current_user %>
-<%= link_to "Manage My Shop", my_shop_shop_path(@shop)%>
+<%= link_to "Manage My Shop", my_shop_shop_path(@shop), {class: "button is-light"}%>
 <% end %>
 
-<%= link_to "View all shops", shops_path %>
+<div class="container">
+    <div class="notification">
+        <div class="columns">
+            <div class="column is-one-third">
+                <figure class="image"></figure><%= avatar(@shop.id, Shop) %>
+            </figure>
+
+            </div>
+        </div>
+        <h1><strong><%= @shop.name %></strong></h1>
+        <h4> By: <%= @shop.user.first_name%> <%= @shop.user.last_name %></h4><br>
+        <p><%= @shop.description %></p>
+    </div>
+</div><br>
+
+<div class="columns is-multiline is-mobile">
+    <% @shop.listed_items.each do |item| %>
+        <div class="column is-one-quarter">
+            <a href="/items/<%=item.id%>">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-2by1">
+                            <%= avatar(item.id, Item) %>
+                        </figure>
+                    </div>
+
+                    <div class="card-content">
+                    <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4"><%= link_to item.name, item_path(item) %></p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <p><%= item.description %></p>
+                        </div>
+                        <div class="content">
+                            <p><strong><%= number_to_currency(item.price) %></strong></p>
+                        </div>
+                        <div class="content">
+                            <p>In Stock: <strong><%= item.quantity %></strong></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    <% end %>
+</div>

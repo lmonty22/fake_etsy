@@ -16,25 +16,25 @@
 
    <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <div class="navbar-item"><%= link_to "View Shops", shops_path %></div>
+      <div class="navbar-item"><%= link_to "Browse Shops", shops_path, {class: "button is-primary"} %></div>
     </div>
 
     <div class="navbar-end">
-      <div class="navbar-item" style="display:flex; justify-content:space-between;">
-       <% if logged_in? %>  
-      <div> <%= current_user.username %></div>
-          <%= link_to "My Profile", user_path(current_user), {class: "button is-light"}%>
+      <div class="navbar-item">
+        <% if logged_in? %>  
+          <div style="padding:5px"><%= current_user.username %></div>
+          <div style="padding:5px"><%= link_to "My Profile", user_path(current_user), {class: "button is-light"}%></div>
           <% if current_user.shop %>
-               <%= link_to "Manage my Shop", my_shop_shop_path(current_user.shop), {class: "button is-light"}%>
+            <div style="padding:5px"><%= link_to "Manage my Shop", my_shop_shop_path(current_user.shop), {class: "button is-light"}%></div>
           <%end %>
-          <%= link_to "My Cart (#{current_cart.length})", my_cart_path(current_user), {class: "button is-light"} %>
-           <a class="button is-primary" href=<%=logout_path%>><strong>Logout</strong> </a>
+          <div style="padding:5px"><%= link_to "My Cart (#{current_cart.length})", my_cart_path(current_user), {class: "button is-light"} %></div>
+          <div style="padding:5px"><a class="button is-primary" href=<%=logout_path%>><strong>Logout</strong> </a></div>
         <%else%>
-        <div><%= link_to "Login", login_path, class: "button is-light" %></div>
-        <div><%= link_to "Sign Up", new_user_path, class: "button is-primary" %></div>
+          <div style="padding:5px">><%= link_to "Login", login_path, class: "button is-light" %></div>
+          <div style="padding:5px">><%= link_to "Sign Up", new_user_path, class: "button is-primary" %></div>
         <%end%>
       </div>
-      </div>
+    </div>
   </nav>
   <section class="section">
     <%= yield %>

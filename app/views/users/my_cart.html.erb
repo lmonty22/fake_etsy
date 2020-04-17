@@ -1,7 +1,7 @@
 <h1>My Cart</h1>
 <div class="container">
   <div class="notification">
-      <%= flash[:remove_from_cart]%>
+    <div style="color:red"><%= flash[:remove_from_cart]%></div>
         <% if current_cart.length > 0 %>
             <% current_cart.each do |i| %>
                 <div class="columns">

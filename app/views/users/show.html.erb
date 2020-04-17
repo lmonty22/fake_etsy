@@ -2,7 +2,7 @@
 
 <h1>My Dashboard</h1>
 <div class="container">
-  <div class="notification">
+<div class="notification">
 
 <div class="columns">
     <div class="column" style=" display: flex; justify-content: center;" >
@@ -24,15 +24,11 @@
   </div>
 </div>
 
-
-
-
 <hr>
 <br>
 
 <h2>Your Order History (<%= @user.total_orders %>)</h2>
-
-    <% @user.orders.each do |order| %>
+<% @user.orders.each do |order| %>
 <div class="container">
   <div class="notification">
 
@@ -40,7 +36,6 @@
     <div>Order Number: <strong><%= order.id %></strong></div>
     <div>Items in Order: </div>
     <br>
-
     <% order.items.each do |item| %>
         <div class="columns">
             <div class="column"><%= avatar(item.id, Item, "image is-128x128") %> </div>
@@ -54,10 +49,12 @@
                     <%= link_to "Write A Review For This Item", {controller: "reviews", action: "new", item: item.id} %><br>
                 <%end%>
             </div>
-            <div class="column"><%= number_to_currency(item.price)%> </div>
+            <div class="column" style="display:flex; justify-content:flex-end; align-items:center"><%= number_to_currency(item.price)%> </div>
         </div>
     <% end %>
-     <div>Order Total: <strong><%= number_to_currency(order.total)%></strong></div>
+     <div style="display:flex; justify-content:flex-end">
+     <p>Order Total: <strong> <%= number_to_currency(order.total)%></strong></p>
+     </div>
 </div>
 <hr>
 <% end %>

@@ -8,9 +8,9 @@
                 <h2><strong> <%= @item.name %></strong></h2>
                 <h4>Shop: <%= link_to @item.shop.name, shop_path(@item.shop) %>
                 <p>Description: <%= @item.description %></p>
-                <div>Item Price: <%= number_to_currency(@item.price) %></div>
+                <div>Item Price: <strong><%= number_to_currency(@item.price) %></strong></div>
                     <% if @item.quantity && @item.quantity > 0 %>
-                        <div>In Stock: <%= @item.quantity %></div>
+                        <div>In Stock: <strong><%= @item.quantity %></strong></div>
                     <% else %>
                         <div> This Item is Sold Out! </div>
                     <%end%>
@@ -22,17 +22,21 @@
                         <%= link_to "Re-list this item", status_path(@item), :method => :patch%>
                         <% end %>
                 <% else %>
+                <br>
                         <% if logged_in? %>
                             <% if @item.listed && @item.quantity && @item.quantity> 0 %>
-                                 <%= link_to "Add to Cart!", add_to_cart_path(@item), :method => :post%>
+                                 <%= link_to "Add to Cart!", add_to_cart_path(@item), {class: "button is-primary", :method => :post}%>
                             <% end %>
                         <% else %>
                             <% if @item.quantity && @item.quantity> 0 %>
-                                    <%= link_to "Please log in to add this item to your cart!", login_path %>
+                                    <%= link_to "Please log in to add this item to your cart!", login_path, {class: "button is-primary"} %>
                             <%end %>
                         <% end %>
                 <%end%>
-                <%= link_to "Back to Shop", shop_path(@item.shop) %>
+                <br>
+                <br>
+
+                <div><%= link_to "Back to Shop", shop_path(@item.shop) %></div>
              </div>
         </div>
     </div>
