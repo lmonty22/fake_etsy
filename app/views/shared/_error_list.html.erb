@@ -1,10 +1,11 @@
-<% if new_object.errors %>
-<div class="container">
-  <div class="notification">
-    <% new_object.errors.full_messages.each do |message| %>
-        <%= message %>
-      </div>
-    </div>
-    <% end %>
-<% end %>
 
+<% if new_object.errors.any? %>
+<div>
+    <h3 style="color: red"><%= pluralize(new_object.errors.count, "error") %> prohibited this item from being saved:</h3>
+    <ul>
+       <% new_object.errors.full_messages.each do |message| %>
+       <li style="color: red"><%= message %></li>
+       <% end %>
+    </ul>
+</div>
+<% end %>

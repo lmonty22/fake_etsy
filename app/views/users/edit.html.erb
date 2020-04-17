@@ -2,15 +2,22 @@
 
 <%= render partial: "/shared/error_list", locals: {new_object: @user} %>
 
-<%= form_for @user do |f| %>
-<%= f.label :username %>
-<%= f.text_field :username %>
-<%= f.label :password%>
-<%= f.password_field :password %>
-<%= f.text_field :first_name %>
-<%= f.label :last_name %>
-<%= f.text_field :last_name %>
-<%= f.label :image %>
-<%= f.file_field :image%>
-<%= f.submit %>
-<% end %>
+<div><%= flash["error"] %></div>
+    <div class="columns">
+        <div class="column" style="display:flex; justify-content:flex-start;">
+            <%= form_for @user do |f| %>
+            <%= f.label :username %>
+            <%= f.text_field :username %><br>
+            <%= f.label :password%>
+            <%= f.password_field :password %><br>
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name %><br>
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name %><br>
+            <%= f.label :image %>
+            <%= f.file_field :image%><br><br>
+            <%= f.submit class: "button is-primary" %>
+            <% end %>
+        </div>
+    </div>
+</div>

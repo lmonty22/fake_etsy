@@ -1,12 +1,16 @@
-<h1>Login</h1>
+<h1 style="display:flex; justify-content:center;">Login</h1><hr>
 
 <div><%= flash["error"] %></div>
-
-<%= form_tag '/login' do %>
-    <%= label :username, "Username" %>
-    <%= text_field_tag :username %>
-    <%= label :password, "Password" %>
-    <%= password_field_tag :password %>
-    <%= submit_tag 'Login' %>
-<% end %>
-<%= link_to "Create Account", new_user_path %>
+    <div class="columns">
+        <div class="column" style="display:flex; justify-content:center;">
+            <%= form_tag '/login' do %>
+                <%= label :username, "Username" %>
+                <%= text_field_tag :username %><br>
+                <%= label :password, "Password" %>
+                <%= password_field_tag :password %><br>
+                <div style="padding:5px"><%= submit_tag 'Login', class: "button is-primary" %></div>
+                <div style="padding:5px"><%= link_to "Create Account", new_user_path, class: "button is-light" %></div>
+            <% end %>
+        </div>
+    </div>
+</div>

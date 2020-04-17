@@ -1,15 +1,18 @@
 <h1>Write a Review For: <%= @item.name %> -- From: <%= @item.shop.name %></h1>
 
 <%= render partial: "/shared/error_list", locals: {new_object: @review} %>
-
-
-<%= form_for @review do |f| %>
-<%= f.hidden_field :item_id, value: @item.id%>
-<%= f.label :title %>
-<%= f.text_field :title %><br>
-<%= f.label "#{:rating} (1 - 5)" %>
-<%= f.number_field :rating%><br>
-<%= f.label :content %>
-<%= f.text_area :content %><br>
-<%= f.submit %>
-<% end %>
+    <div class="columns">
+        <div class="column" style="display:flex; justify-content:flex-start;">
+            <%= form_for @review do |f| %>
+            <%= f.hidden_field :item_id, value: @item.id%>
+            <%= f.label :title %>
+            <%= f.text_field :title %><br>
+            <%= f.label "#{:rating} (1 - 5)" %>
+            <%= f.number_field :rating%><br>
+            <%= f.label :content %>
+            <%= f.text_area :content, class: "textarea"%><br><br>
+            <%= f.submit class: "button is-primary"%>
+            <% end %>
+        </div>
+    </div>
+</div>
